@@ -1,0 +1,46 @@
+dataset: meta-tiered-imagenet
+train_set_args: 
+  split: meta-train
+  size: 224           # added for ViT
+  transform: clip
+  n_batch: 100
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  split: meta-val
+  size: 224           # added for ViT
+  transform: clip
+  n_batch: 100
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+
+encoder: clip_ViT-B32
+
+lp_path: ../main_few_shot_image/save/clip/tiered-imagenet/stdFT/meta-tiered-imagenet_clip_ViT-B32_lp_logistic_15y1s_150m_200M
+lp_ckpt: lp_epoch-10.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-6 # 0.001
+  momentum: 0.9
+  weight_decay: 5.e-6
+
+
+
+save_epoch: 1
+V: 1
+n_epochs: 10
+

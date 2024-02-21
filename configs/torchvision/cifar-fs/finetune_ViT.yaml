@@ -1,0 +1,44 @@
+dataset: meta-cifar-fs
+train_set_args: 
+  split: meta-train
+  size: 224           
+  transform: dinov2
+  n_batch: 200
+  n_episode: 1
+  n_way: 5
+  n_shot: 5
+  n_query: 15
+val_set_args:
+  split: meta-val
+  size: 224           
+  transform: make_classification_eval_transform
+  n_batch: 20
+  n_episode: 1
+  n_way: 5
+  n_shot: 5
+  n_query: 10
+
+
+encoder: torchvision_vit_b_32
+
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-6 # 0.001
+  momentum: 0.9
+  weight_decay: 5.e-6
+
+
+########### M,m trend
+save_path: ./save/torchvision/cifar-fs/5y5s
+
+
+save_epoch: 5
+V: 1
+n_epochs: 10
+

@@ -1,0 +1,39 @@
+dataset: meta-domain-net
+test_set_args:
+  root: /srv/home/zxu444/datasets/domainNet/sketch_split
+  split: meta-test
+  size: 224                 
+  transform: make_classification_eval_transform #the reason is 'flip' has resize() alone, does not work, since some image is not square, see https://pytorch.org/vision/main/generated/torchvision.transforms.Resize.html
+  n_batch: 15
+  n_episode: 2
+  n_way: 15
+  n_shot: 5
+  n_query: 15
+
+
+### encoder
+encoder: mocov3_vit
+encoder_args: 
+  arch: vit_base
+  ckpt_path: ../../pretrained_model/mocov3/vit-b-300ep.pth.tar
+
+#encoder: mocov3_RN50
+#encoder_args: 
+#  ckpt_path: ../../pretrained_model/mocov3/r-50-300ep.pth.tar
+
+# path: ./save/mocov3/domain-net/Mm_trend/meta-domain-net_mocov3_vit_fs-centroid_15y1s_150m_200M
+# path: save/mocov3/mini-imagenet/Mm_trend/meta-mini-imagenet_mocov3_vit_fs-centroid_15y1s_150m_200M
+# path: ./save/mocov3/domain-net/stdFT/meta-domain-net_mocov3_vit_lp_logistic_15y1s_150m_200M
+
+# RN50
+# path: ./save/mocov3/domain-net/Mm_trend/meta-domain-net_mocov3_RN50_fs-centroid_15y1s_150m_200M
+path: save/mocov3/mini-imagenet/Mm_trend/meta-mini-imagenet_mocov3_RN50_fs-centroid_15y1s_150m_200M
+# path: ./save/mocov3/domain-net/stdFT/meta-domain-net_mocov3_RN50_lp_logistic_15y1s_150m_200M
+ckpt: max-va.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+
+V: 1
+n_epochs: 10

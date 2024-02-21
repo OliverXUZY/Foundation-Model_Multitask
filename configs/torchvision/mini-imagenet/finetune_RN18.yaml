@@ -1,0 +1,44 @@
+dataset: meta-mini-imagenet
+train_set_args:
+  split: meta-train
+  size: 224          
+  transform: dinov2
+  val_transform: dinov2
+  n_batch: 200
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  split: meta-val
+  size: 224           
+  transform: make_classification_eval_transform
+  val_transform: make_classification_eval_transform
+  n_batch: 200
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+encoder: torchvision_RN18
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+optimizer: sgd
+optimizer_args:
+  lr: 2.e-8 # 0.001
+  momentum: 0.99
+  weight_decay: 0 # 5.e-4
+
+
+
+save_path: ./save/torchvision/mini-imagenet/smallmodel
+
+
+V: 1
+n_epochs: 10

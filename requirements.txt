@@ -1,0 +1,9 @@
+torch>=1.12
+torchvision=0.15.0
+numpy
+tqdm
+tensorboard
+transformers
+scikit_learn
+git+https://github.com/openai/CLIP.git
+ipykernel

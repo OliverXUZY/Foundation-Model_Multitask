@@ -1,0 +1,67 @@
+dataset: meta-tiered-imagenet
+train_set_args: 
+  split: meta-train
+  size: 224           
+  transform: mocov3
+  val_transform: mocov3
+  n_batch: 100
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  split: meta-val
+  size: 224           
+  transform: flip
+  val_transform: flip
+  n_batch: 100
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+
+encoder: mocov3_RN50
+encoder_args: 
+  ckpt_path: ../../pretrained_model/mocov3/r-50-300ep.pth.tar
+
+lp_path: ../main_few_shot_image/save/mocov3/tiered-imagenet/stdFT/meta-tiered-imagenet_mocov3_RN50_lp_logistic_15y1s_150m_200M
+
+lp_ckpt: lp_epoch-10.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+lp_optimizer: sgd
+lp_optimizer_args:
+  lr: 1.
+  schedule: step
+  decay_rate: 0.1
+  decay_epochs:
+    - 60
+    - 80
+  momentum: 0.9
+  weight_decay: 0
+lp_n_epochs: 30
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-7 # 0.001
+  # schedule: step
+  # decay_rate: 0.1
+  # decay_epochs:
+  #   - 3
+  momentum: 0.9
+  weight_decay: 5.e-6
+n_epochs: 10
+
+save_path: ./save/mocov3/tiered-imagenet/stdFT
+
+save_epoch: 10
+V: 1
+
+

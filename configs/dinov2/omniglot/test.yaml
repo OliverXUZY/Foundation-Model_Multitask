@@ -1,0 +1,33 @@
+dataset: meta-omniglot
+test_set_args:
+  split: meta-test
+  size: 224                 # add for clip
+  transform: make_classification_eval_transform
+  n_batch: 150
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 15
+
+##  test pretrain CLIP RN50 freeze + append train mlp head + meta NC as classifier
+# path: ./save/meta-mini-imagenet_RN50_fs-centroid_5y1s_train_wrapper_head_clip
+
+
+### meta_limited_class
+# path: ./save/meta_limited_classes/class32/meta-mini-imagenet_ViT-B32_fs-centroid_5y1s_finetune
+# path: ./save/meta_limited_classes/omniglot/class10/meta-omniglot_ViT-B32_fs-centroid_5y1s_finetune
+
+
+### few_shot_images
+# path: ./save/few_shot_images/shot5/run3/meta-mini-imagenet_ViT-B32_fs-centroid_5y5s_finetune
+
+encoder: dinov2_vitb14
+# ckpt: max-va.pth
+# ckpt: epoch-last.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+
+V: 1
+n_epochs: 10

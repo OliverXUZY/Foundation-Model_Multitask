@@ -1,0 +1,57 @@
+dataset: meta-tiered-imagenet
+train_set_args:
+  split: meta-train
+  size: 224           # added for CLIP
+  transform: clip
+  n_batch: 200
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  split: meta-val
+  size: 224           # added for CLIP
+  transform: clip
+  n_batch: 200
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+encoder: RN50
+
+# path: ./save/tiered-imagenet/Mm_trend/meta-tiered-imagenet_RN50_fs-centroid_15y1s_150m_600M
+# ckpt: epoch-last.pth
+# start_epoch_from: 50
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+optimizer: sgd
+optimizer_args:
+  lr: 2.e-8 # 0.001
+  momentum: 0.99
+  weight_decay: 0 # 5.e-4
+
+########### limited number of images per class we get access to
+# save_path: ./save/meta_train_limited/limited10/clip # added for meta_train_limited
+
+########### limited class we get access to, multiple run
+# save_path: ./save/meta_limited_classes/class64/run3
+# seed: 2
+
+########### vary few shot images per task
+# save_path: ./save/few_shot_images/shot5/run3
+
+########### M,m trend
+# save_path: ./save/tiered-imagenet/Mm_trend
+
+save_path: ./save/mini-imagenet/vary_num_shot
+
+
+V: 1
+n_epochs: 20

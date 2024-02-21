@@ -1,0 +1,65 @@
+dataset: meta-mini-imagenet
+train_set_args: 
+  split: meta-train
+  # split: meta_train_limited10
+  # split: meta_train_limited_class32
+  size: 224           # added for ViT
+  transform: clip
+  n_batch: 800
+  n_episode: 1
+  n_way: 5
+  n_shot: 2
+  n_query: 18
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  split: meta-val
+  size: 224           # added for ViT
+  transform: null
+  n_batch: 200
+  n_episode: 1
+  n_way: 5
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+
+encoder: ViT-B32
+
+### continue to tune encoder
+path: ./save/task_samples/make_up_paper/meta-mini-imagenet_ViT-B32_fs-centroid_5y2s_100m_600M
+ckpt: max-va.pth
+start_epoch_from: 10
+
+
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-5 # 0.001
+  momentum: 0.9
+  weight_decay: 5.e-6
+
+########### limited number of images per class we get access to
+# save_path: ./save/meta_train_limited/limited10/clip # added for meta_train_limited
+
+########### limited class we get access to, multiple run
+# save_path: ./save/meta_limited_classes/class64/run3
+# seed: 2
+
+########### vary few shot images per task
+# save_path: ./save/few_shot_images/shot5/run3
+
+########### task, samples
+# save_path: ./save/task_samples/task5000
+
+########### M,m trend
+save_path: ./save/task_samples/make_up_paper
+
+save_epoch: 5
+V: 1
+n_epochs: 10
+

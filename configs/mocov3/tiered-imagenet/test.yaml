@@ -1,0 +1,37 @@
+dataset: meta-tiered-imagenet
+test_set_args:
+  split: meta-test
+  size: 224                 
+  transform: flip # adapt from mocov3: main_lincls: https://github.com/facebookresearch/moco-v3/blob/c349e6e24f40d3fedb22d973f92defa4cedf37a7/main_lincls.py#L288
+  n_batch: 15
+  n_episode: 2
+  n_way: 15
+  n_shot: 5
+  n_query: 15
+
+
+### encoder
+encoder: mocov3_vit
+encoder_args:
+  arch: vit_base
+  ckpt_path: ../../pretrained_model/mocov3/vit-b-300ep.pth.tar
+
+#encoder: mocov3_RN50
+#encoder_args: 
+#  ckpt_path: ../../pretrained_model/mocov3/r-50-300ep.pth.tar
+
+# path: ./save/mocov3/tiered-imagenet/Mm_trend/meta-tiered-imagenet_mocov3_vit_fs-centroid_15y1s_150m_200M
+# path: ./save/mocov3/tiered-imagenet/stdFT/meta-tiered-imagenet_mocov3_vit_lp_logistic_15y1s_150m_200M
+
+# RN50
+# path: ./save/mocov3/tiered-imagenet/Mm_trend/meta-tiered-imagenet_mocov3_RN50_fs-centroid_15y1s_150m_200M
+# path: ./save/mocov3/tiered-imagenet/stdFT/meta-tiered-imagenet_mocov3_RN50_lp_logistic_15y1s_150m_200M
+
+ckpt: max-va.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+
+V: 1
+n_epochs: 10

@@ -1,0 +1,47 @@
+dataset: meta-tiered-imagenet
+train_set_args:
+  split: meta-train
+  size: 224           
+  transform: dinov2
+  val_transform: dinov2
+  n_batch: 200
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  split: meta-val
+  size: 224           
+  transform: make_classification_eval_transform
+  val_transform: make_classification_eval_transform
+  n_batch: 200
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+encoder: torchvision_RN50
+
+# path: ./save/tiered-imagenet/Mm_trend/meta-tiered-imagenet_RN50_fs-centroid_15y1s_150m_600M
+# ckpt: epoch-last.pth
+# start_epoch_from: 50
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-7 # 0.001
+  momentum: 0.99
+  weight_decay: 0 # 5.e-4
+
+
+save_path: ./save/torchvision/tiered-imagenet/Mm_trend
+
+save_epoch: 5
+V: 1
+n_epochs: 20

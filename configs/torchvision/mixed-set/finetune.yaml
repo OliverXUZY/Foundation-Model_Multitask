@@ -1,0 +1,52 @@
+dataset: meta-mixed-set
+train_set_args: 
+  root_mini: /srv/home/zxu444/datasets/mini-imagenet
+  root_domain: /srv/home/zxu444/datasets/domainNet/sketch_split
+  split: meta-train
+  size: 224           # added for ViT
+  transform: dinov2
+  val_transform: dinov2
+  n_batch: 100
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+val_dataset: meta-domain-net
+val_set_args:
+  root: /srv/home/zxu444/datasets/domainNet/sketch_split
+  split: meta-val
+  size: 224           # added for ViT
+  transform: make_classification_eval_transform
+  n_batch: 50
+  n_episode: 1
+  n_way: 15
+  n_shot: 1
+  n_query: 9
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+
+encoder: torchvision_vit_b_32
+
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-5 # 0.001
+  momentum: 0.9
+  weight_decay: 5.e-6
+
+
+########### M,m trend
+save_path: ./save/torchvision/mixed-set/Mm_trend
+
+
+save_epoch: 1
+V: 1
+n_epochs: 10
+

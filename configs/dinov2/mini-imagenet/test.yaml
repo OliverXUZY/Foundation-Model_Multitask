@@ -1,0 +1,37 @@
+dataset: meta-mini-imagenet
+test_set_args:
+  split: meta-test
+  size: 224                 
+  transform: make_classification_eval_transform
+  n_batch: 10
+  n_episode: 2
+  n_way: 15
+  n_shot: 5
+  n_query: 15
+
+
+#encoder: dinov2_vitb14
+# path: ./save/dinov2/mini-imagenet/Mm_trend/meta-mini-imagenet_dinov2_vitb14_fs-centroid_15y1s_150m_200M
+# path: ./save/dinov2/mini-imagenet/stdFT/meta-mini-imagenet_dinov2_vitb14_lp_logistic_15y1s_150m_200M
+# path: ./save/dinov2/mini-imagenet/limited_class/meta-mini-imagenet_dinov2_vitb14_fs-centroid_15y1s9q_150m_200M
+# path: ./save/dinov2/domain-net/Mm_trend/meta-domain-net_dinov2_vitb14_fs-centroid_15y1s_150m_200M
+
+encoder: dinov2_vits14
+# path: ./save/dinov2/mini-imagenet/Mm_trend/meta-mini-imagenet_dinov2_vits14_fs-centroid_15y1s_150m_200M
+# path: ./save/dinov2/mini-imagenet/stdFT/meta-mini-imagenet_dinov2_vits14_lp_logistic_15y1s_150m_200M
+
+# path: ./save/dino/mini-imagenet/5y5s/meta-mini-imagenet_dino_vitb16_fs-centroid_5y5s15q_100m_200M
+# encoder: dino_vitb16
+
+# ckpt: max-va.pth
+# ckpt: epoch-5.pth
+path: ./save/dinov2/mini-imagenet/meta-mini-imagenet_dinov2_vits14_fs-centroid_15y2s18q_300m_100M
+ckpt: max-va.pth
+
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+
+V: 1
+n_epochs: 10

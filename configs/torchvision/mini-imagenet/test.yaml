@@ -1,0 +1,32 @@
+dataset: meta-mini-imagenet
+test_set_args:
+  split: meta-test
+  size: 224                
+  transform: make_classification_eval_transform
+  n_batch: 10
+  n_episode: 2
+  n_way: 15
+  n_shot: 5
+  n_query: 15
+
+
+encoder: torchvision_vit_b_32
+# path: ./save/torchvision/mini-imagenet/Mm_trend/meta-mini-imagenet_torchvision_vit_b_32_fs-centroid_15y1s_150m_200M
+# path: ./save/torchvision/mini-imagenet/stdFT/meta-mini-imagenet_torchvision_vit_b_32_lp_logistic_15y1s_150m_200M
+#path: ./save/torchvision/domain-net/Mm_trend/meta-domain-net_torchvision_vit_b_32_fs-centroid_15y1s_150m_200M
+
+# encoder: torchvision_RN18
+# path: ./save/torchvision/mini-imagenet/smallmodel/meta-mini-imagenet_torchvision_RN18_fs-centroid_15y1s9q_150m_200M
+
+#encoder: torchvision_RN50
+# path: ./save/torchvision/mini-imagenet/Mm_trend/meta-mini-imagenet_torchvision_RN50_fs-centroid_15y1s_150m_200M
+# path: ./save/torchvision/mini-imagenet/stdFT/meta-mini-imagenet_torchvision_RN50_lp_logistic_15y1s_150m_200M
+
+ckpt: max-va.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+
+V: 1
+n_epochs: 10

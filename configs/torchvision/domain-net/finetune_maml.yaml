@@ -1,0 +1,50 @@
+dataset: meta-domain-net
+train_set_args: 
+  root: /srv/home/zxu444/datasets/domainNet/sketch_split
+  split: meta-train
+  size: 224           
+  transform: dinov2
+  n_batch: 100
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 4
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+val_set_args:
+  root: /srv/home/zxu444/datasets/domainNet/sketch_split
+  split: meta-val
+  size: 224           
+  transform: make_classification_eval_transform
+  n_batch: 10
+  n_episode: 2
+  n_way: 15
+  n_shot: 1
+  n_query: 10
+  deterministic: True  # whether set images in dataset to be deterministic in each epoch
+
+
+encoder: torchvision_vit_b_32
+
+
+
+lp_path: ../main_few_shot_image/save/torchvision/domain-net/stdFT/meta-domain-net_torchvision_vit_b_32_lp_logistic_15y1s_150m_200M
+lp_ckpt: lp_epoch-10.pth
+
+classifier: fs-centroid
+classifier_args:
+  temp: 10.
+  learn_temp: True
+
+
+optimizer: sgd
+optimizer_args:
+  lr: 1.e-6 # 0.001
+  momentum: 0.9
+  weight_decay: 5.e-6
+
+
+
+save_epoch: 1
+V: 1
+n_epochs: 10
+
