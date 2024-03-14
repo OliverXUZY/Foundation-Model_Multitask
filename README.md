@@ -4,6 +4,8 @@ Zhuoyan Xu, Zhenmei Shi, Junyi Wei, Fangzhou Mu, Yin Li, Yingyu Liang
 This repository is the official Pytorch implementation of our method in the paper
 [Towards Few-Shot Adaptation of Foundation Models via Multitask Finetuning](https://openreview.net/forum?id=1jbh2e0b2K) (ICLR 2024). 
 
+In this repo, we provide code for multitask finetuning on various vision foundation models, along with proposed task selection algorithm. We provide the necessary code for multitask finetuning and ablation studies. 
+
 ## Requirements
 
 It is tested under Ubuntu Linux 20.04 and Python 3.9 environment and requires some packages to be installed.
@@ -14,7 +16,6 @@ Install other used packages:
 
 ```
 pip install -r requirements.txt
-
 ```
 
 **Datasets**
